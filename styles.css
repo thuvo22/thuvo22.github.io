@@ -1550,9 +1550,8 @@ input:checked+.slider:before {
 
 /* Division */
 .hl_contact-details-center .hl_conversations--message .hl_conversations--message-header-new {
-    padding-top: 67px;
-    margin-top: 0px;
-    transform: translatex(0px) translatey(0px);
+    padding-top:0px !important;
+    transform:translatex(0px) translatey(0px);
 }
 
 /* Message wrapper */
