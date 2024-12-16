@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Buy Box Modal</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/choices.js/public/assets/styles/choices.min.css">
+    <style>
+        /* Make the offcanvas modal wider */
+        @media (min-width: 992px) {
+            .offcanvas-wide {
+                width: 90%;
+                /* Modal takes up 90% of the screen width */
+                max-width: none;
+                /* Remove maximum width limit */
+            }
+        }
+
+        .offcanvas-wide {
+            width: 100%;
+            /* Adjust this percentage for your desired width */
+            max-width: 1600px;
+            /* Optional: Set a maximum width for very large screens */
+        }
+
+        /* Center modal body content */
+        .offcanvas-body {
+            text-align: center;
+            /* Center-align content */
+            padding: 20px;
+            /* Adjust padding for a cleaner look */
+            box-sizing: border-box;
+        }
+
+
+        /* Make text responsive */
+        .responsive-text {
+            font-size: clamp(12px, 1.5vw, 16px);
+            /* Flexible font size */
+            white-space: nowrap;
+            /* Prevent wrapping */
+            overflow: hidden;
+            /* Hide overflow text */
+            text-overflow: ellipsis;
+            /* Add ellipsis (...) for overflow */
+        }
+
+        /* Ensure the font size adjusts dynamically */
+        .toggle-item span {
+            font-size: clamp(12px, 1.2vw, 16px);
+            /* Responsive font size */
+            white-space: nowrap;
+            /* Prevents wrapping to a new line */
+            overflow: hidden;
+            /* Ensures text doesn't overflow */
+            text-overflow: ellipsis;
+            /* Adds '...' if text is too long */
+        }
+
+        /* General Styling */
+        .toggle-container {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .toggle-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .form-switch .form-check-input {
+            width: 40px;
+            height: 20px;
+        }
+
+        /* Divider Styling */
+        .divider {
+            width: 1px;
+            background-color: #ddd;
+            height: 30px;
+        }
+
+        /* Info Icon */
+        .info-icon {
+            color: #6c757d;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .info-icon:hover {
+            color: #0d6efd;
+        }
+
+        /* General Styling */
+        body {
+            background-color: #f8f9fa;
+        }
+
+
+        /* Header Styling */
+        .offcanvas-header {
+            background-color: #aeeaf2;
+            color: #333;
+            font-weight: bold;
+        }
+
+        /* Tabs */
+        .nav-tabs {
+            border-bottom: 2px solid #ddd;
+        }
+
+        .nav-link {
+            color: #333;
+            font-weight: 500;
+            padding: 10px;
+        }
+
+        .nav-link.active {
+            color: #007bff;
+            border-bottom: 3px solid #007bff;
+        }
+
+        /* Pill Badges */
+        .badge-pill {
+            background-color: #007bff;
+            color: white;
+            padding: 6px 12px;
+            border-radius: 20px;
+            cursor: pointer;
+        }
+
+        .badge-pill i {
+            margin-left: 5px;
+        }
+
+        /* Range Inputs */
+        .range-inputs {
+            display: flex;
+            gap: 10px;
+        }
+
+        .range-inputs input {
+            flex: 1;
+        }
+
+        /* Preferences Buttons */
+        .btn-option {
+            border: 1px solid #ddd;
+            padding: 6px 12px;
+            margin: 2px;
+            border-radius: 8px;
+            cursor: pointer;
+            background-color: #f8f9fa;
+            font-weight: 500;
+        }
+
+        .btn-option.active {
+            background-color: #007bff;
+            color: white;
+            border-color: #007bff;
+        }
+
+        /* Info Icons */
+        .info-icon {
+            color: #007bff;
+            cursor: pointer;
+        }
+
+        .info-icon:hover {
+            color: #0056b3;
+        }
+
+        /* Table Actions */
+        .trash-btn {
+            color: #007bff;
+            cursor: pointer;
+        }
+
+        .trash-btn:hover {
+            color: #0056b3;
+        }
+
+        /* Custom Choices.js Styling */
+        .choices__inner {
+            min-height: 44px;
+            border: 1px solid #ced4da;
+            border-radius: 8px;
+            box-shadow: none;
+        }
+
+        .choices__list--dropdown,
+        .choices__list[aria-expanded] {
+            background-color: #ffffff;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+        }
+
+        .choices__list--dropdown .choices__item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 8px 12px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .choices__list--dropdown .choices__item:hover {
+            background-color: #f1f9ff;
+            /* Light blue hover */
+            color: #007bff;
+        }
+
+        .choices__list--dropdown .choices__item::before {
+            content: '';
+            display: inline-block;
+            width: 16px;
+            height: 16px;
+            border: 1px solid #ced4da;
+            border-radius: 3px;
+            background-color: white;
+        }
+
+        /* Selected Checkmark Styling */
+        .choices__list--dropdown .choices__item[data-choice-selected]::before {
+            background-color: #007bff;
+            border-color: #007bff;
+            content: '✔';
+            color: white;
+            font-size: 12px;
+            text-align: center;
+            line-height: 16px;
+        }
+
+        .choices__item--selectable .choices__button {
+            color: white;
+            font-size: 14px;
+            margin-left: 5px;
+        }
+
+        /* Default Toggle Styling */
+        .form-check-input {
+            width: 40px;
+            height: 20px;
+            cursor: pointer;
+            border: 1px solid #ced4da;
+            background-color: #e9ecef;
+            transition: background-color 0.6s, border-color 0.6s;
+        }
+
+        /* Thumb Movement with Slower Transition */
+        .form-check-input::before {
+            content: "";
+            display: block;
+            width: 14px;
+            height: 14px;
+            background-color: white;
+            border-radius: 50%;
+            position: relative;
+            top: 2px;
+            left: 2px;
+            transition: transform 0.6s;
+            /* Slow thumb movement */
+        }
+
+        /* Red Background When Checked */
+        .form-check-input:checked {
+            background-color: blue;
+            /* Red background */
+            border-color: blue;
+        }
+
+        /* Custom red switch background */
+        .form-check-input.restricted-toggle:checked {
+            background-color: #dc3545;
+            /* Red color */
+            border-color: #dc3545;
+        }
+
+        /* Move the switch thumb smoothly */
+        .form-check-input.restricted-toggle::before {
+            transition: transform 0.4s ease;
+            /* Smooth movement */
+        }
+
+        .form-check-input.restricted-toggle:checked::before {
+            transform: translateX(20px);
+        }
+
+        /* Move the switch thumb smoothly */
+        .form-check-input::before {
+            transition: transform 0.4s ease;
+            /* Smooth movement */
+        }
+
+        .form-check-input:checked::before {
+            transform: translateX(20px);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container mt-5">
+        <!-- Trigger Button -->
+        <button class="btn btn-primary" data-bs-toggle="offcanvas" data-bs-target="#buyBoxModal"
+            aria-controls="buyBoxModal">
+            Open Buy Box
+        </button>
+
+    </div>
+
+    <!-- Sliding Modal -->
+    <div class="offcanvas offcanvas-end offcanvas-wide" tabindex="-1" id="buyBoxModal"
+        aria-labelledby="buyBoxModalLabel">
+        <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="buyBoxModalLabel">Michael Worley</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        </div>
+        <div class="offcanvas-body">
+            <!-- Tabs -->
+            <ul class="nav nav-tabs mb-4">
+                <li class="nav-item">
+                    <a class="nav-link active" href="#">Buy Box</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Additional Information</a>
+                </li>
+            </ul>
+            <div class="toggle-container">
+                <!-- Buy Box Toggle -->
+                <div class="toggle-item">
+                    <span class="fw-bold responsive-text">Buy Box</span>
+                    <i class="bi bi-info-circle-fill info-icon" data-bs-toggle="tooltip"
+                        title="This is the Buy Box feature."></i>
+                </div>
+
+                <!-- Divider -->
+                <div class="divider"></div>
+
+                <!-- Blacklist Toggle -->
+                <div class="toggle-item">
+                    <span class="fw-bold responsive-text">Blacklist</span>
+                    <div class="form-check form-switch">
+                        <input class="form-check-input" type="checkbox" id="blackListToggle" checked>
+                    </div>
+                </div>
+
+                <!-- Divider -->
+                <div class="divider"></div>
+
+                <!-- Active Buyer Toggle -->
+                <div class="toggle-item">
+                    <span class="fw-bold responsive-text">Active Buyer</span>
+                    <div class="form-check form-switch">
+                        <input class="form-check-input" type="checkbox" id="activeBuyerToggle" checked>
+                    </div>
+                </div>
+            </div>
+            <!-- Upgrade Button -->
+            <button class="btn btn-primary w-100 mb-4">Upgrade to VIP Buyer</button>
+            <!-- Criteria Section -->
+            <div class="mb-4">
+                <label class="form-label fw-bold">Strict Criteria <i class="bi bi-info-circle-fill info-icon"
+                        data-bs-toggle="tooltip" title="Choose strict criteria for filtering."></i></label>
+                <select class="form-select mb-3">
+                    <option>Select Value(s)</option>
+                </select>
+                <label class="form-label fw-bold">Location Preferences</label>
+                <input type="text" class="form-control" placeholder="Enter location(s)">
+            </div>
+            <!-- Table Section -->
+            <table class="table table-hover align-middle">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th class="text-center">Restricted</th>
+                        <th>Type</th>
+                        <th class="text-center">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="responsive-text">Duval County (FL)</td>
+                        <td class="text-center">
+                            <div class="form-check form-switch d-inline-block">
+                                <input class="form-check-input restricted-toggle" type="checkbox"
+                                    id="restrictedToggle2">
+                            </div>
+                        </td>
+                        <td>County</td>
+                        <td class="text-center">
+                            <i class="bi bi-trash trash-btn"></i>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="responsive-text">Nassau County (FL)</td>
+                        <td class="text-center">
+                            <div class="form-check form-switch d-inline-block">
+                                <input class="form-check-input restricted-toggle" type="checkbox"
+                                    id="restrictedToggle2">
+                            </div>
+                        </td>
+                        <td>County</td>
+                        <td class="text-center">
+                            <i class="bi bi-trash trash-btn"></i>
+                        </td>
+                    </tr>
+
+                </tbody>
+            </table>
+
+            <!-- Multi-Select Dropdown -->
+            <div class="mb-4">
+                <label class="form-label fw-bold">Strategy Type*</label>
+                <select id="multi-select-dropdown" class="form-control" multiple>
+                    <option value="Fix n' Flip">Fix n' Flip</option>
+                    <option value="Buy n' Hold">Buy n' Hold</option>
+                    <option value="Subto">Subto</option>
+                    <option value="Short Term Rental">Short Term Rental</option>
+                    <option value="New Developments">New Developments</option>
+                    <option value="Addition Plays">Addition Plays</option>
+                </select>
+            </div>
+            <!-- Desired Property Type Dropdown -->
+            <div class="mb-4">
+                <label class="form-label fw-bold">Desired Property Type</label>
+                <select id="property-type" class="form-control" multiple>
+                    <option value="Single Family Residential">Single Family Residential</option>
+                    <option value="Multi-Family 2-4 Units">Multi-Family 2-4 Units</option>
+                    <option value="Multi-Family 5+ Units">Multi-Family 5+ Units</option>
+                    <option value="Land">Land</option>
+                    <option value="Mobile Home">Mobile Home</option>
+                    <option value="Condo">Condo</option>
+                    <option value="Townhome">Townhome</option>
+                </select>
+            </div>
+
+            <!-- Price Range -->
+            <div class="mb-4">
+                <label class="form-label fw-bold">Purchase Price Range</label>
+                <div class="range-inputs">
+                    <input type="text" class="form-control" placeholder="No Min">
+                    <input type="text" class="form-control" placeholder="400,000">
+                </div>
+            </div>
+
+            <!-- Bedroom Preferences -->
+            <div class="mb-4">
+                <label class="form-label fw-bold">Bedroom Preferences</label>
+                <div class="d-flex flex-wrap justify-content-center align-items-center">
+                    <div class="btn-option active">Any</div>
+                    <div class="btn-option">1+</div>
+                    <div class="btn-option">2+</div>
+                    <div class="btn-option">3+</div>
+                    <div class="btn-option">4+</div>
+                    <div class="btn-option">5+</div>
+                </div>
+            </div>
+
+            <!-- Bathroom Preferences -->
+            <div class="mb-4">
+                <label class="form-label fw-bold">Bathroom Preferences</label>
+                <div class="d-flex flex-wrap justify-content-center align-items-center">
+                    <div class="btn-option active">Any</div>
+                    <div class="btn-option">1+</div>
+                    <div class="btn-option">2+</div>
+                    <div class="btn-option">3+</div>
+                    <div class="btn-option">4+</div>
+                    <div class="btn-option">5+</div>
+                </div>
+            </div>
+
+            <!-- Square Footage Range -->
+            <div class="mb-4">
+                <label class="form-label fw-bold">Square Footage Range</label>
+                <div class="range-inputs">
+                    <input type="text" class="form-control" placeholder="No Min">
+                    <input type="text" class="form-control" placeholder="No Max">
+                </div>
+            </div>
+            <!-- Year Range -->
+            <div class="mb-4">
+                <label class="form-label fw-bold">Year Range</label>
+                <div class="range-inputs">
+                    <input type="text" class="form-control" placeholder="No Min">
+                    <input type="text" class="form-control" placeholder="No Max">
+                </div>
+            </div>
+            <!-- Footer Section -->
+            <div class="d-flex justify-content-center mt-4 border-top pt-3">
+                <button type="button" class="btn btn-primary w-50">Save</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/choices.js/public/assets/scripts/choices.min.js"></script>
+
+    <script>
+        // Tooltips Initialization
+        const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]');
+        const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl));
+
+        // Remove badge on click
+        document.querySelectorAll('.badge-pill i').forEach(icon => {
+            icon.addEventListener('click', () => {
+                icon.parentElement.remove();
+            });
+        });
+
+        // Toggle active class for preference buttons
+        document.querySelectorAll('.btn-option').forEach(button => {
+            button.addEventListener('click', () => {
+                button.parentElement.querySelectorAll('.btn-option').forEach(btn => btn.classList.remove('active'));
+                button.classList.add('active');
+            });
+        });
+        document.addEventListener('DOMContentLoaded', function () {
+            const element = document.getElementById('multi-select-dropdown');
+
+            const choices = new Choices(element, {
+                removeItemButton: true,
+                searchEnabled: true,
+                itemSelectText: '',
+                shouldSort: false,
+                placeholder: true,
+                placeholderValue: 'Select an option',
+                classNames: {
+                    containerOuter: 'choices',
+                    containerInner: 'choices__inner',
+                    input: 'choices__input',
+                    listDropdown: 'choices__list--dropdown',
+                    listSingle: 'choices__list--single',
+                    listItems: 'choices__list--multiple',
+                    itemSelectable: 'choices__item--selectable',
+                    itemChoice: 'choices__item--choice',
+                },
+            });
+        });
+        document.addEventListener('DOMContentLoaded', function () {
+            const propertyType = new Choices('#property-type', {
+                removeItemButton: true,
+                searchEnabled: true,
+                itemSelectText: '',
+                shouldSort: false,
+                placeholderValue: 'Select Property Type',
+            });
+        });
+    </script>
+</body>
+
+</html>
