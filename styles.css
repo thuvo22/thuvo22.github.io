@@ -1537,9 +1537,6 @@ input:checked+.slider:before {
 
 /* Messages group inner */
 .message-body--conversation .flex-col-reverse>.messages-group-inner {
-    border-style: solid;
-    border-color: #050505;
-    border-width: 2px;
     padding-left: 30px;
     padding-right: 30px;
     transform: translatex(0px) translatey(0px);
@@ -1622,44 +1619,221 @@ input:checked+.slider:before {
     padding-top: 0px !important;
 }
 
-/* Sliding button */
-#central-panel .sliding-button {
-    left: 160px;
-    top: 12px;
+/* Custom button add tag */
+#central-panel .custom-button-add-tag {
+    bottom: 743px;
+    left: 205px;
+    top: 20px;
+    position: absolute;
+    z-index: 1;
+    transform: translatex(0px) translatey(0px);
+    margin-top: 0px !important;
+    margin-bottom: 0px !important;
+    height: 43px;
+    margin-left: 0px !important;
+    margin-right: 0px !important;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
+    border-style: none !important;
+    border-color: #ffffff;
+}
+
+/* Strong Tag */
+#central-panel .custom-button-add-tag strong {
+    border-color: #ffffff;
+    border-width: 0px;
+    border-style: none;
 }
 
 /* Messages group inner */
 .message-body--conversation .flex-col-reverse>.messages-group-inner {
-    background-color: #ffffff;
-    margin-bottom: 0px;
-}
-
-/* Central panel */
-#central-panel {
-    background-color: #000000 !important;
+    top: 0px !important;
     transform: translatex(0px) translatey(0px);
-    background-image: none !important;
-}
-
-/* Central panel header */
-#central-panel-header {
-    padding-top: 0px !important;
-    padding-bottom: 0px !important;
-    transform: translatex(0px) translatey(0px);
+    position: static !important;
 }
 
 /* Division */
-#app div .flex .w-full .hl_wrapper div #conversations .hl_conversations--wrap div .hl_conversations--message #central-panel #central-panel .update-styling-for-new-right-panel {
-    margin-top: 2px !important;
+.hl_contact-details-center .hl_conversations--message .hl_conversations--message-header-new {
+    padding-bottom: 0px;
+    margin-top: 0px;
+}
+
+/* Custom button add tag */
+.hl_conversations--message .hl_conversations--message-header-new .custom-button-add-tag {
+    top: 16px;
+    left: 193px;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
+    border-style: none !important;
+}
+
+/* Messages group inner */
+.message-body--conversation .flex-col-reverse>.messages-group-inner {
+    position: relative;
+    top: -62px;
+}
+
+/* Flex col reverse */
+.central-panel-messages div #central-panel-wrapper .hl-wrapper-container .n-config-provider .transition-all .message-body--conversation .flex-col-reverse {
+    position: relative !important;
+}
+
+/* Flex col reverse */
+#central-panel-wrapper .transition-all .flex-col-reverse {
+    transform: translatex(0px) translatey(0px);
+    top: 0px;
+    padding-bottom: 0px;
+    padding-top: 0px;
 }
 
 /* Division */
-#central-panel .update-styling-for-new-right-panel {
-    top: -74px !important;
+#app div .flex .w-full .hl_topbar-tabs .hl_wrapper #contact-details .hl_contact-details-new--wrap .hl_contact-details-center .hl_conversations--message .hl_conversations--message-header-new {
+    padding-top: 82px !important;
+}
+
+/* Message input wrap */
+#app div .flex .w-full .hl_topbar-tabs .hl_wrapper #contact-details .hl_contact-details-new--wrap .hl_contact-details-center .hl_conversations--message #center-panel .message-input-wrap {
+    top: -90px !important;
+}
+
+/* Sliding button */
+.hl_conversations--message .hl_conversations--message-header-new .sliding-button {
+    width: 175px;
+    height: 46px;
+    top: 16px !important;
+}
+
+/* Wrapper container */
+#central-panel-wrapper>.hl-wrapper-container {
+    margin-bottom: 0px !important;
+    transform: translatex(0px) translatey(0px);
+}
+
+/* Sliding button */
+.hl_conversations--message .hl_conversations--message-header-new .sliding-button {
+    padding-left: 0px;
+    padding-right: 0px;
+    padding-bottom: 0px;
+    padding-top: 0px;
+    transform: translatex(0px) translatey(0px);
+    font-size: 18px;
+    font-style: normal;
+    text-transform: capitalize;
+    text-shadow: none;
+    text-decoration: none;
+    word-spacing: 0px;
+    letter-spacing: 0px;
+    direction: ltr;
+    font-family: 'Courier New', Courier, 'Lucida Sans Typewriter', 'Lucida Typewriter', monospace;
+    flex-wrap: nowrap;
+    justify-content: center;
+    flex-direction: row;
+    flex: 1 1 0%;
+    float: none;
+    clear: none;
+    visibility: visible;
+    pointer-events: auto;
+    align-self: center;
+    opacity: 1;
+    display: block;
+    box-shadow: 3px 5px 0px 0px rgba(0, 0, 0, 0.1);
+    width: 125px !important;
+}
+
+/* Custom button add tag */
+.hl_conversations--message .hl_conversations--message-header-new .custom-button-add-tag {
+    left: 144px !important;
+    transform: translatex(0px) translatey(0px);
+    text-transform: capitalize !important;
+    font-style: normal;
+    font-family: 'Courier New', Courier, 'Lucida Sans Typewriter', 'Lucida Typewriter', monospace;
+    box-shadow: 3px 4px 0px 2px rgba(0, 0, 0, 0.1);
+}
+
+/* Messages group inner */
+.central-panel-messages div #central-panel-wrapper .hl-wrapper-container .n-config-provider .transition-all .message-body--conversation .flex-col-reverse>.messages-group-inner {
+    position: relative !important;
+    top: -144px !important;
+}
+
+/* Messages group inner */
+#central-panel .messages-group #central-panel-wrapper .hl-wrapper-container .n-config-provider .transition-all .message-body--conversation .flex-col-reverse>.messages-group-inner {
+    position: relative !important;
+    top: -86px !important;
+}
+
+
+
+
+/* Messages group inner */
+.message-body--conversation .flex-col-reverse>.messages-group-inner {
+    position: relative;
+    margin-bottom: 200px;
+    padding-bottom: 0px;
+    padding-top: 0px;
+}
+
+/* Messages group inner */
+.hl_contact-details-new--wrap .hl_contact-details-center .hl_conversations--message #center-panel div .central-panel-messages div #central-panel-wrapper .hl-wrapper-container .n-config-provider .transition-all .message-body--conversation .flex-col-reverse>.messages-group-inner {
+    top: 0px !important;
+}
+
+/* Flex col reverse */
+#central-panel-wrapper .transition-all .flex-col-reverse {
+    bottom: auto;
+    overflow: scroll !important;
+    height: 100% !important;
+}
+
+/* Flex col reverse */
+.hl_contact-details-new--wrap .hl_contact-details-center .hl_conversations--message #center-panel div .central-panel-messages div #central-panel-wrapper .hl-wrapper-container .n-config-provider .transition-all .message-body--conversation .flex-col-reverse {
+    position: static !important;
 }
 
 /* Flex col reverse */
 #central-panel .messages-group #central-panel-wrapper .hl-wrapper-container .n-config-provider .transition-all .message-body--conversation .flex-col-reverse {
-    position: relative !important;
-    top: -90px !important;
+    overflow: visible !important;
+}
+
+
+
+/* Custom button add tag */
+#central-panel .custom-button-add-tag{
+ top:20px;
+ left:155px !important;
+ height:45px !important;
+ box-shadow:0px 4px 5px 2px rgba(0,0,0,0.1);
+}
+
+/* Sliding button */
+#central-panel .sliding-button{
+ height:45px;
+}
+
+/* Strong Tag */
+#central-panel .custom-button-add-tag strong{
+ font-family:'Courier New',Courier,'Lucida Sans Typewriter','Lucida Typewriter',monospace;
+ font-size:18px;
+}
+
+/* Strong Tag */
+#central-panel .sliding-button strong{
+ font-family:'Courier New',Courier,'Lucida Sans Typewriter','Lucida Typewriter',monospace;
+ font-size:18px;
+}
+
+/* Messages group inner */
+#conversations .hl_conversations--wrap div .hl_conversations--message #central-panel #central-panel .messages-group #central-panel-wrapper .hl-wrapper-container .n-config-provider .transition-all .message-body--conversation .flex-col-reverse > .messages-group-inner{
+ height:100% !important;
+}
+
+/* Messages group inner */
+.message-body--conversation .flex-col-reverse > .messages-group-inner{
+ background-color:#faf9f9;
 }
