@@ -343,7 +343,7 @@ function addSlidingButtonAboveElement(containerSelector) {
                             isPanelOpen = true;
                         }
                     }
-                }, 2000); // Simulate a 2-second wait
+                }, 500); // Simulate a 2-second wait
             });
 
             // Append the button to the parent element
