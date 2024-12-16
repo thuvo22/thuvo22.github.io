@@ -138,7 +138,7 @@ function addButtonAddTagAboveElement(containerSelector) {
             // Create a new button element if it doesn't exist
             let newButton = document.createElement('button');
             newButton.innerHTML = `
-            <img src="https://storage.googleapis.com/msgsndr/UEW8ayn3dNsZG78pPsZw/media/675b8ee3299a3dd3d1006a2b.png" 
+            <img src="https://storage.googleapis.com/msgsndr/UEW8ayn3dNsZG78pPsZw/media/675f91586876bd8379e23918.png" 
                  alt="Rocket" 
                  class="rocket-icon" 
                  style="width: 24px; height: 24px; display: inline-block;">
