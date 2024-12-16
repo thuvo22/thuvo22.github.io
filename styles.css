@@ -1513,8 +1513,6 @@ div div .border-b-2 .flex .font-medium {
 #central-panel-wrapper .transition-all .flex-col-reverse {
     margin-top: 0px !important;
     transform: translatex(0px) translatey(0px);
-    border-width: 2px;
-    border-color: #000000;
     top: 0px !important;
     position: static !important;
     z-index: 0;

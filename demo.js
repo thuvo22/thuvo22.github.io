@@ -365,75 +365,99 @@ function createSlidingPanel() {
     slidingPanel.className = 'sliding-panel';
     slidingPanel.style.transform = 'translateX(100%)'; // Initially hidden
 
-    slidingPanel.innerHTML = `
-<div class="panel-header">
-    <h2>Buy Box</h2>
-    <button id="closePanel">
-        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-x-circle-fill" viewBox="0 0 16 16">
-            <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM6.854 4.146a.5.5 0 0 0-.708.708L7.293 6.5 4.146 9.646a.5.5 0 0 0 .708.708L8 7.707l3.146 3.147a.5.5 0 0 0 .708-.708L8.707 6.5l2.147-2.146a.5.5 0 0 0-.708-.708L8 5.793 6.854 4.146z"/>
-        </svg>
-    </button>
-</div>
-<div class="panel-tabs">
-    <button class="tab active">Buy Box</button>
-    <button class="tab">Additional Information</button>
-</div>
-<div class="panel-content">
-    <div class="toggle-section">
-        <label>Buy Box <div class="toggle"><input type="checkbox" checked /><span class="slider"></span></div></label>
-        <label>Blacklist <div class="toggle"><input type="checkbox" /><span class="slider"></span></div></label>
-        <label>Active Buyer <div class="toggle"><input type="checkbox" checked /><span class="slider"></span></div></label>
+    slidingPanel.innerHTML = `<div>
+    <div class="panel-header bg-primary text-white d-flex justify-content-between align-items-center p-3">
+        <h2>Buy Box</h2>
+        <button id="closePanel" class="btn btn-outline-light btn-sm">
+            <i class="bi bi-x-circle-fill"></i>
+        </button>
     </div>
-    <button class="vip-button">Upgrade to VIP Buyer</button>
-    <div class="criteria-section">
-        <label>Strict Criteria</label>
-        <select>
-            <option value="">Select Value(s)</option>
-        </select>
-        <label>Location Preferences</label>
-        <input type="text" placeholder="Enter location(s)" />
+    <div class="panel-tabs d-flex bg-light border-bottom">
+        <button class="tab btn btn-light flex-fill active">Buy Box</button>
+        <button class="tab btn btn-light flex-fill">Additional Information</button>
     </div>
-    <div class="county-list">
-        <table>
-            <thead>
-                <tr>
-                    <th>Name</th>
-                    <th>Restricted</th>
-                    <th>Type</th>
-                    <th>Action</th>
-                </tr>
-            </thead>
-           <tbody>
-                <tr>
-                    <td>Duval County (FL)</td>
-                    <td>
-                        <div class="toggle">
-                            <input type="checkbox" />
-                            <span class="slider"></span>
-                        </div>
-                    </td>
-                    <td>County</td>
-                    <td><button class="trash-btn">🗑</button></td>
-                </tr>
-                <tr>
-                    <td>Nassau County (FL)</td>
-                    <td>
-                        <div class="toggle">
-                            <input type="checkbox" />
-                            <span class="slider"></span>
-                        </div>
-                    </td>
-                    <td>County</td>
-                    <td><button class="trash-btn">🗑</button></td>
-                </tr>
-            </tbody>
-
-        </table>
+    <div class="panel-content p-3">
+        <div class="toggle-section mb-4">
+            <label class="form-check-label">Buy Box 
+                <input class="form-check-input ms-2" type="checkbox" checked>
+            </label>
+            <label class="form-check-label">Blacklist 
+                <input class="form-check-input ms-2" type="checkbox">
+            </label>
+            <label class="form-check-label">Active Buyer 
+                <input class="form-check-input ms-2" type="checkbox" checked>
+            </label>
+        </div>
+        <button class="btn btn-primary mb-4">Upgrade to VIP Buyer</button>
+        <div class="criteria-section mb-4">
+            <label>Strict Criteria</label>
+            <select class="form-select mb-3">
+                <option value="">Select Value(s)</option>
+            </select>
+            <label>Location Preferences</label>
+            <input type="text" class="form-control" placeholder="Enter location(s)">
+        </div>
+        <div class="county-list">
+            <table class="table table-bordered table-hover">
+                <thead class="table-light">
+                    <tr>
+                        <th>Name</th>
+                        <th>Restricted</th>
+                        <th>Type</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Duval County (FL)</td>
+                        <td>
+                            <div class="form-check form-switch">
+                                <input class="form-check-input" type="checkbox">
+                            </div>
+                        </td>
+                        <td>County</td>
+                        <td>
+                            <button class="btn btn-danger btn-sm trash-btn">
+                                <i class="bi bi-trash"></i>
+                            </button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Nassau County (FL)</td>
+                        <td>
+                            <div class="form-check form-switch">
+                                <input class="form-check-input" type="checkbox">
+                            </div>
+                        </td>
+                        <td>County</td>
+                        <td>
+                            <button class="btn btn-danger btn-sm trash-btn">
+                                <i class="bi bi-trash"></i>
+                            </button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
     </div>
-</div>
+    </div>
 `;
 
+    // Add event listeners for toggles
+    document.querySelectorAll('.form-check-input').forEach(toggle => {
+        toggle.addEventListener('change', (event) => {
+            console.log(`Toggle state: ${event.target.checked}`);
+        });
+    });
 
+    // Trash button functionality
+    document.querySelectorAll('.trash-btn').forEach(button => {
+        button.addEventListener('click', (event) => {
+            const row = event.target.closest('tr');
+            row.remove();
+            console.log('Row deleted');
+        });
+    });
     document.body.appendChild(slidingPanel);
     document.getElementById('closePanel').addEventListener('click', function () {
         console.log("Close button got clicked")
