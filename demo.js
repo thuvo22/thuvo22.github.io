@@ -403,21 +403,31 @@ function createSlidingPanel() {
                     <th>Action</th>
                 </tr>
             </thead>
-            <tbody>
+           <tbody>
                 <tr>
                     <td>Duval County (FL)</td>
-                    <td><div class="toggle"><input type="checkbox" /><span class="slider"></span></div></td>
+                    <td>
+                        <div class="toggle">
+                            <input type="checkbox" />
+                            <span class="slider"></span>
+                        </div>
+                    </td>
                     <td>County</td>
                     <td><button class="trash-btn">🗑</button></td>
                 </tr>
                 <tr>
                     <td>Nassau County (FL)</td>
-                    <td><div class="toggle"><input type="checkbox" /><span class="slider"></span></div></td>
+                    <td>
+                        <div class="toggle">
+                            <input type="checkbox" />
+                            <span class="slider"></span>
+                        </div>
+                    </td>
                     <td>County</td>
                     <td><button class="trash-btn">🗑</button></td>
                 </tr>
-                <!-- Add other rows similarly -->
             </tbody>
+
         </table>
     </div>
 </div>
