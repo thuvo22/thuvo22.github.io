@@ -1589,7 +1589,7 @@ input:checked+.slider:before {
 
 /* Flex col reverse */
 #conversations .hl_conversations--wrap div .hl_conversations--message #central-panel #central-panel .messages-group #central-panel-wrapper .hl-wrapper-container .n-config-provider .transition-all .message-body--conversation .flex-col-reverse {
-    height: 100% !important;
+    padding-bottom:0px !important;
 }
 
 /* Font Icon */
