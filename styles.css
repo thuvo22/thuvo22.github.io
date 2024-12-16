@@ -60,9 +60,12 @@
 
 /* Custom Add Tag Button */
 .custom-button-add-tag {
-    position: absolute; /* Ensure this button is also positioned absolutely */
-    top: 70px; /* Offset below the sliding button */
-    left: 20px; /* Same left alignment */
+    position: absolute;
+    /* Ensure this button is also positioned absolutely */
+    top: 70px;
+    /* Offset below the sliding button */
+    left: 20px;
+    /* Same left alignment */
     display: inline-flex;
     align-items: center;
     background-color: #3498db;
@@ -1257,8 +1260,10 @@ div div .border-b-2 .flex .font-medium {
 /* Sliding Button */
 .sliding-button {
     position: absolute;
-    top: 20px; /* Position the sliding button 20px from the top */
-    left: 20px; /* 20px from the left */
+    top: 20px;
+    /* Position the sliding button 20px from the top */
+    left: 20px;
+    /* 20px from the left */
     z-index: 1000;
     color: #4A4A4A;
     border: none;
@@ -1543,8 +1548,8 @@ input:checked+.slider:before {
 
 /* Division */
 .hl_contact-details-center .hl_conversations--message .hl_conversations--message-header-new {
-    padding-top:0px !important;
-    transform:translatex(0px) translatey(0px);
+    padding-top: 0px !important;
+    transform: translatex(0px) translatey(0px);
 }
 
 /* Message wrapper */
@@ -1582,7 +1587,7 @@ input:checked+.slider:before {
 
 /* Flex col reverse */
 #conversations .hl_conversations--wrap div .hl_conversations--message #central-panel #central-panel .messages-group #central-panel-wrapper .hl-wrapper-container .n-config-provider .transition-all .message-body--conversation .flex-col-reverse {
-    padding-bottom:0px !important;
+    padding-bottom: 0px !important;
 }
 
 /* Font Icon */
@@ -1599,20 +1604,62 @@ input:checked+.slider:before {
 .fa-angle-double-down {
     position: static;
 }
+
 /* Sliding button */
-.hl_conversations--message .hl_conversations--message-header-new .sliding-button{
- transform:translatex(0px) translatey(0px);
- top:4px;
- bottom:80px;
+.hl_conversations--message .hl_conversations--message-header-new .sliding-button {
+    transform: translatex(0px) translatey(0px);
+    top: 4px;
+    bottom: 80px;
 }
 
 /* Contact details */
-#contact-details{
- padding-top:0px;
+#contact-details {
+    padding-top: 0px;
 }
 
 /* Wrapper */
-#app div .flex .w-full .hl_topbar-tabs .hl_wrapper{
- padding-top:0px !important;
+#app div .flex .w-full .hl_topbar-tabs .hl_wrapper {
+    padding-top: 0px !important;
 }
 
+/* Sliding button */
+#central-panel .sliding-button {
+    left: 160px;
+    top: 12px;
+}
+
+/* Messages group inner */
+.message-body--conversation .flex-col-reverse>.messages-group-inner {
+    background-color: #ffffff;
+    margin-bottom: 0px;
+}
+
+/* Central panel */
+#central-panel {
+    background-color: #000000 !important;
+    transform: translatex(0px) translatey(0px);
+    background-image: none !important;
+}
+
+/* Central panel header */
+#central-panel-header {
+    padding-top: 0px !important;
+    padding-bottom: 0px !important;
+    transform: translatex(0px) translatey(0px);
+}
+
+/* Division */
+#app div .flex .w-full .hl_wrapper div #conversations .hl_conversations--wrap div .hl_conversations--message #central-panel #central-panel .update-styling-for-new-right-panel {
+    margin-top: 2px !important;
+}
+
+/* Division */
+#central-panel .update-styling-for-new-right-panel {
+    top: -74px !important;
+}
+
+/* Flex col reverse */
+#central-panel .messages-group #central-panel-wrapper .hl-wrapper-container .n-config-provider .transition-all .message-body--conversation .flex-col-reverse {
+    position: relative !important;
+    top: -90px !important;
+}
