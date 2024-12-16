@@ -139,8 +139,8 @@ function addButtonAddTagAboveElement(containerSelector) {
             let newButton = document.createElement('button');
             newButton.innerHTML = `
             <img src="https://storage.googleapis.com/msgsndr/UEW8ayn3dNsZG78pPsZw/media/675f91586876bd8379e23918.png" 
-                 alt="Rocket" 
-                 class="rocket-icon" 
+                 alt="Tag" 
+                 class="tag-icon" 
                  style="width: 24px; height: 24px; display: inline-block;">
             <strong>Add Tag</strong>
         `; // Add SVG icon before the text
@@ -296,7 +296,7 @@ function addSlidingButtonAboveElement(containerSelector) {
                      alt="Rocket" 
                      class="rocket-icon" 
                      style="width: 24px; height: 24px; display: inline-block;">
-                <strong>Dispo Master</strong>
+                <strong>Dispo</strong>
             `;
             newButton.className = 'sliding-button';
 
