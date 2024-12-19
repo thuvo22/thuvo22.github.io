@@ -365,170 +365,81 @@ function createSlidingPanel() {
     slidingPanel.className = 'sliding-panel';
     slidingPanel.style.transform = 'translateX(100%)'; // Initially hidden
 
-    slidingPanel.innerHTML = `
-    <div class="offcanvas offcanvas-end offcanvas-wide" tabindex="-1" id="buyBoxModal"
-        aria-labelledby="buyBoxModalLabel">
-        <div class="offcanvas-header">
-            <h5 class="offcanvas-title" id="buyBoxModalLabel">Michael Worley</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    slidingPanel.innerHTML = `<div>
+    <div class="panel-header bg-primary text-white d-flex justify-content-between align-items-center p-3">
+        <h2>Buy Box</h2>
+        <button id="closePanel" class="btn btn-outline-light btn-sm">
+            <i class="bi bi-x-circle-fill"></i>
+        </button>
+    </div>
+    <div class="panel-tabs d-flex bg-light border-bottom">
+        <button class="tab btn btn-light flex-fill active">Buy Box</button>
+        <button class="tab btn btn-light flex-fill">Additional Information</button>
+    </div>
+    <div class="panel-content p-3">
+        <div class="toggle-section mb-4">
+            <label class="form-check-label">Buy Box 
+                <input class="form-check-input ms-2" type="checkbox" checked>
+            </label>
+            <label class="form-check-label">Blacklist 
+                <input class="form-check-input ms-2" type="checkbox">
+            </label>
+            <label class="form-check-label">Active Buyer 
+                <input class="form-check-input ms-2" type="checkbox" checked>
+            </label>
         </div>
-        <div class="offcanvas-body">
-            <!-- Tabs -->
-            <ul class="nav nav-tabs mb-4">
-                <li class="nav-item">
-                    <a class="nav-link active" href="#">Buy Box</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Additional Information</a>
-                </li>
-            </ul>
-            <div class="toggle-container">
-                <!-- Buy Box Toggle -->
-                <div class="toggle-item">
-                    <span class="fw-bold responsive-text">Buy Box</span>
-                    <i class="bi bi-info-circle-fill info-icon" data-bs-toggle="tooltip"
-                        title="This is the Buy Box feature."></i>
-                </div>
-
-                <!-- Divider -->
-                <div class="divider"></div>
-
-                <!-- Blacklist Toggle -->
-                <div class="toggle-item">
-                    <span class="fw-bold responsive-text">Blacklist</span>
-                    <div class="form-check form-switch">
-                        <input class="form-check-input" type="checkbox" id="blackListToggle">
-                    </div>
-                </div>
-
-                <!-- Divider -->
-                <div class="divider"></div>
-
-                <!-- Active Buyer Toggle -->
-                <div class="toggle-item">
-                    <span class="fw-bold responsive-text">Active Buyer</span>
-                    <div class="form-check form-switch">
-                        <input class="form-check-input" type="checkbox" id="activeBuyerToggle" checked>
-                    </div>
-                </div>
-            </div>
-            <!-- Upgrade Button -->
-            <button class="btn btn-primary w-100 mb-4">Upgrade to VIP Buyer</button>
-            <!-- Multi-Select Dropdown -->
-            <div class="mb-4">
-                <label class="form-label fw-bold">Strict Criteria</label>
-                <select id="strict-criteria-dropdown" class="form-control" multiple>
-                    <option value="Strict Locations">Strict Locations</option>
-                    <option value="Strict Pricing">Strict Pricing</option>
-                    <option value="Strict Bed and Bath Count">Strict Bed and Bath Count</option>
-                    <option value="Strict Square Footage Range">Strict Square Footage Range</option>
-                    <option value="Strict Year Build">Strict Year Build</option>
-                    <option value="Strict All">Strict All</option>
-                </select>
-                <label class="form-label fw-bold">Location Preferences</label>
-                <input type="text" id="location-input" class="form-control" placeholder="Enter location(s)">
-
-            </div>
-
-            <!-- Table Section -->
-            <!-- Table Section -->
-            <table id="location-table" class="table table-hover align-middle mt-4">
-                <thead>
+        <button class="btn btn-primary mb-4">Upgrade to VIP Buyer</button>
+        <div class="criteria-section mb-4">
+            <label>Strict Criteria</label>
+            <select class="form-select mb-3">
+                <option value="">Select Value(s)</option>
+            </select>
+            <label>Location Preferences</label>
+            <input type="text" class="form-control" placeholder="Enter location(s)">
+        </div>
+        <div class="county-list">
+            <table class="table table-bordered table-hover">
+                <thead class="table-light">
                     <tr>
-                        <th>Location</th>
-                        <th class="text-center">Restricted</th>
-                        <th class="text-center">Type</th>
-                        <th class="text-center">Action</th>
+                        <th>Name</th>
+                        <th>Restricted</th>
+                        <th>Type</th>
+                        <th>Action</th>
                     </tr>
                 </thead>
                 <tbody>
+                    <tr>
+                        <td>Duval County (FL)</td>
+                        <td>
+                            <div class="form-check form-switch">
+                                <input class="form-check-input" type="checkbox">
+                            </div>
+                        </td>
+                        <td>County</td>
+                        <td>
+                            <button class="btn btn-danger btn-sm trash-btn">
+                                <i class="bi bi-trash"></i>
+                            </button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Nassau County (FL)</td>
+                        <td>
+                            <div class="form-check form-switch">
+                                <input class="form-check-input" type="checkbox">
+                            </div>
+                        </td>
+                        <td>County</td>
+                        <td>
+                            <button class="btn btn-danger btn-sm trash-btn">
+                                <i class="bi bi-trash"></i>
+                            </button>
+                        </td>
+                    </tr>
                 </tbody>
             </table>
-
-
-
-            <!-- Multi-Select Dropdown -->
-            <div class="mb-4">
-                <label class="form-label fw-bold">Strategy Type*</label>
-                <select id="multi-select-dropdown" class="form-control" multiple>
-                    <option value="Fix n' Flip">Fix n' Flip</option>
-                    <option value="Buy n' Hold">Buy n' Hold</option>
-                    <option value="Subto">Subto</option>
-                    <option value="Short Term Rental">Short Term Rental</option>
-                    <option value="New Developments">New Developments</option>
-                    <option value="Addition Plays">Addition Plays</option>
-                </select>
-            </div>
-            <!-- Desired Property Type Dropdown -->
-            <div class="mb-4">
-                <label class="form-label fw-bold">Desired Property Type</label>
-                <select id="property-type" class="form-control" multiple>
-                    <option value="Single Family Residential">Single Family Residential</option>
-                    <option value="Multi-Family 2-4 Units">Multi-Family 2-4 Units</option>
-                    <option value="Multi-Family 5+ Units">Multi-Family 5+ Units</option>
-                    <option value="Land">Land</option>
-                    <option value="Mobile Home">Mobile Home</option>
-                    <option value="Condo">Condo</option>
-                    <option value="Townhome">Townhome</option>
-                </select>
-            </div>
-
-            <!-- Price Range -->
-            <div class="mb-4">
-                <label class="form-label fw-bold">Purchase Price Range</label>
-                <div class="range-inputs">
-                    <input type="text" class="form-control" placeholder="No Min">
-                    <input type="text" class="form-control" placeholder="400,000">
-                </div>
-            </div>
-
-            <!-- Bedroom Preferences -->
-            <div class="mb-4">
-                <label class="form-label fw-bold">Bedroom Preferences</label>
-                <div class="d-flex flex-wrap justify-content-center align-items-center">
-                    <div class="btn-option active">Any</div>
-                    <div class="btn-option">1+</div>
-                    <div class="btn-option">2+</div>
-                    <div class="btn-option">3+</div>
-                    <div class="btn-option">4+</div>
-                    <div class="btn-option">5+</div>
-                </div>
-            </div>
-
-            <!-- Bathroom Preferences -->
-            <div class="mb-4">
-                <label class="form-label fw-bold">Bathroom Preferences</label>
-                <div class="d-flex flex-wrap justify-content-center align-items-center">
-                    <div class="btn-option active">Any</div>
-                    <div class="btn-option">1+</div>
-                    <div class="btn-option">2+</div>
-                    <div class="btn-option">3+</div>
-                    <div class="btn-option">4+</div>
-                    <div class="btn-option">5+</div>
-                </div>
-            </div>
-
-            <!-- Square Footage Range -->
-            <div class="mb-4">
-                <label class="form-label fw-bold">Square Footage Range</label>
-                <div class="range-inputs">
-                    <input type="text" class="form-control" placeholder="No Min">
-                    <input type="text" class="form-control" placeholder="No Max">
-                </div>
-            </div>
-            <!-- Year Range -->
-            <div class="mb-4">
-                <label class="form-label fw-bold">Year Range</label>
-                <div class="range-inputs">
-                    <input type="text" class="form-control" placeholder="No Min">
-                    <input type="text" class="form-control" placeholder="No Max">
-                </div>
-            </div>
-            <!-- Footer Section -->
-            <div class="d-flex justify-content-center mt-4 border-top pt-3">
-                <button type="button" class="btn btn-primary w-50">Save</button>
-            </div>
         </div>
+    </div>
     </div>
 `;
 
