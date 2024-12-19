@@ -10,23 +10,29 @@
     <!-- Bootstrap Icons -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/choices.js/public/assets/styles/choices.min.css">
+
+    <script
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC--EH-0Ao5QnJ2O7qDY8aLF6j2jk0z5ow&libraries=places&callback=initAutocomplete"
+        async defer></script>
     <style>
-        /* Make the offcanvas modal wider */
-        @media (min-width: 992px) {
-            .offcanvas-wide {
-                width: 90%;
-                /* Modal takes up 90% of the screen width */
-                max-width: none;
-                /* Remove maximum width limit */
+        /* Override Bootstrap's offcanvas styles */
+        .offcanvas.offcanvas-wide {
+            width: 55% !important;
+            /* Force width to 95% */
+            max-width: 100% !important;
+            /* Ensure it uses full width */
+            transition: transform 0.3s ease-in-out;
+            /* Smooth animation */
+        }
+
+        /* Adjust for smaller screens */
+        @media (max-width: 992px) {
+            .offcanvas.offcanvas-wide {
+                width: 100% !important;
+                /* Full width on small screens */
             }
         }
 
-        .offcanvas-wide {
-            width: 100%;
-            /* Adjust this percentage for your desired width */
-            max-width: 1600px;
-            /* Optional: Set a maximum width for very large screens */
-        }
 
         /* Center modal body content */
         .offcanvas-body {
@@ -37,6 +43,78 @@
             box-sizing: border-box;
         }
 
+        /* Location Input Styling */
+        #location-input {
+            padding: 12px 16px;
+            font-size: 16px;
+            color: #495057;
+            border: 1px solid #ced4da;
+            border-radius: 10px;
+            background-color: #ffffff;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease;
+            outline: none;
+        }
+
+        #location-input:focus {
+            border-color: #007bff;
+            box-shadow: 0 0 8px rgba(0, 123, 255, 0.5);
+            background-color: #f9f9ff;
+        }
+
+        /* Input Placeholder Styling */
+        #location-input::placeholder {
+            color: #adb5bd;
+            font-style: italic;
+            transition: color 0.3s ease;
+        }
+
+        #location-input:focus::placeholder {
+            color: #6c757d;
+        }
+
+        /* Google Autocomplete Dropdown Container */
+        .pac-container {
+            z-index: 1050 !important;
+            /* Ensure dropdown appears above all elements */
+            border: none !important;
+            border-radius: 10px !important;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15) !important;
+            overflow: hidden !important;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif !important;
+            font-size: 15px !important;
+            color: #495057 !important;
+        }
+
+        /* Dropdown Item Styling */
+        .pac-item {
+            padding: 12px 16px !important;
+            border-bottom: 1px solid #e9ecef !important;
+            background-color: #ffffff !important;
+            color: #495057 !important;
+            transition: all 0.2s ease-in-out !important;
+            cursor: pointer !important;
+        }
+
+        .pac-item:hover {
+            background-color: #f1f9ff !important;
+            /* Light blue hover */
+            color: #007bff !important;
+            font-weight: 500 !important;
+        }
+
+        /* Selected Text Highlighting */
+        .pac-item-query {
+            font-weight: 600 !important;
+            color: #007bff !important;
+        }
+
+        /* Last Item Without Border */
+        .pac-item:last-child {
+            border-bottom: none !important;
+        }
+
+        
 
         /* Make text responsive */
         .responsive-text {
@@ -65,8 +143,18 @@
         /* General Styling */
         .toggle-container {
             display: flex;
+            justify-content: center;
+            /* Horizontally center the items */
             align-items: center;
+            /* Vertically center the items */
             gap: 20px;
+            /* Add spacing between items */
+            flex-wrap: wrap;
+            /* Allow wrapping if needed */
+            text-align: center;
+            /* Ensure text is centered */
+            margin: auto;
+            /* Horizontally center the container */
         }
 
         .toggle-item {
@@ -349,7 +437,7 @@
                 <div class="toggle-item">
                     <span class="fw-bold responsive-text">Blacklist</span>
                     <div class="form-check form-switch">
-                        <input class="form-check-input" type="checkbox" id="blackListToggle" checked>
+                        <input class="form-check-input" type="checkbox" id="blackListToggle">
                     </div>
                 </div>
 
@@ -366,56 +454,38 @@
             </div>
             <!-- Upgrade Button -->
             <button class="btn btn-primary w-100 mb-4">Upgrade to VIP Buyer</button>
-            <!-- Criteria Section -->
+            <!-- Multi-Select Dropdown -->
             <div class="mb-4">
-                <label class="form-label fw-bold">Strict Criteria <i class="bi bi-info-circle-fill info-icon"
-                        data-bs-toggle="tooltip" title="Choose strict criteria for filtering."></i></label>
-                <select class="form-select mb-3">
-                    <option>Select Value(s)</option>
+                <label class="form-label fw-bold">Strict Criteria</label>
+                <select id="strict-criteria-dropdown" class="form-control" multiple>
+                    <option value="Strict Locations">Strict Locations</option>
+                    <option value="Strict Pricing">Strict Pricing</option>
+                    <option value="Strict Bed and Bath Count">Strict Bed and Bath Count</option>
+                    <option value="Strict Square Footage Range">Strict Square Footage Range</option>
+                    <option value="Strict Year Build">Strict Year Build</option>
+                    <option value="Strict All">Strict All</option>
                 </select>
                 <label class="form-label fw-bold">Location Preferences</label>
-                <input type="text" class="form-control" placeholder="Enter location(s)">
+                <input type="text" id="location-input" class="form-control" placeholder="Enter location(s)">
+
             </div>
+
             <!-- Table Section -->
-            <table class="table table-hover align-middle">
+            <!-- Table Section -->
+            <table id="location-table" class="table table-hover align-middle mt-4">
                 <thead>
                     <tr>
-                        <th>Name</th>
+                        <th>Location</th>
                         <th class="text-center">Restricted</th>
-                        <th>Type</th>
+                        <th class="text-center">Type</th>
                         <th class="text-center">Action</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td class="responsive-text">Duval County (FL)</td>
-                        <td class="text-center">
-                            <div class="form-check form-switch d-inline-block">
-                                <input class="form-check-input restricted-toggle" type="checkbox"
-                                    id="restrictedToggle2">
-                            </div>
-                        </td>
-                        <td>County</td>
-                        <td class="text-center">
-                            <i class="bi bi-trash trash-btn"></i>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="responsive-text">Nassau County (FL)</td>
-                        <td class="text-center">
-                            <div class="form-check form-switch d-inline-block">
-                                <input class="form-check-input restricted-toggle" type="checkbox"
-                                    id="restrictedToggle2">
-                            </div>
-                        </td>
-                        <td>County</td>
-                        <td class="text-center">
-                            <i class="bi bi-trash trash-btn"></i>
-                        </td>
-                    </tr>
-
                 </tbody>
             </table>
+
+
 
             <!-- Multi-Select Dropdown -->
             <div class="mb-4">
@@ -509,6 +579,92 @@
         // Tooltips Initialization
         const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]');
         const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl));
+       function initAutocomplete() {
+    const input = document.getElementById('location-input');
+    if (!input) {
+        console.error('Input field with ID "location-input" not found.');
+        return;
+    }
+
+    // Initialize Google Places Autocomplete
+    const autocomplete = new google.maps.places.Autocomplete(input, {
+        types: ['(regions)'], // Suggestions limited to regions like cities/counties
+        componentRestrictions: { country: 'us' } // Restrict to United States
+    });
+
+    const tableBody = document.querySelector('#location-table tbody');
+
+    // Listen for place selection
+    autocomplete.addListener('place_changed', () => {
+        const place = autocomplete.getPlace();
+
+        if (!place.geometry || !place.formatted_address) {
+            alert('Please select a valid option from the dropdown.');
+            return;
+        }
+
+        // Extract city and state
+        let locationName = '';
+        let locationType = 'City'; // Default to City
+
+        const addressComponents = place.address_components;
+        const city = addressComponents.find(component =>
+            component.types.includes('locality')
+        );
+        const state = addressComponents.find(component =>
+            component.types.includes('administrative_area_level_1')
+        );
+        const zipCode = addressComponents.find(component =>
+            component.types.includes('postal_code')
+        );
+
+        if (city && state) {
+            locationName = `${city.long_name}, ${state.short_name}`;
+        } else if (state) {
+            // Fallback for places without a city (e.g., state-level regions)
+            locationName = state.long_name;
+        } else {
+            // Fallback to the full formatted address
+            locationName = place.formatted_address;
+        }
+
+        // Handle other types like counties or zip codes
+        if (place.types.includes('administrative_area_level_2')) {
+            locationType = 'County';
+        } else if (zipCode) {
+            locationType = 'ZIP Code';
+        }
+
+        // Add the selected location to the table
+        const newRow = document.createElement('tr');
+        newRow.innerHTML = `
+            <td class="responsive-text">${locationName}</td>
+            <td class="text-center">
+                <div class="form-check form-switch d-inline-block">
+                    <input class="form-check-input restricted-toggle" type="checkbox">
+                </div>
+            </td>
+            <td class="responsive-text">${locationType}</td>
+            <td class="text-center">
+                <i class="bi bi-trash trash-btn remove-location" style="cursor: pointer;"></i>
+            </td>
+        `;
+
+        tableBody.appendChild(newRow);
+
+        // Clear input field
+        input.value = '';
+
+        // Handle row deletion with trash icon
+        newRow.querySelector('.remove-location').addEventListener('click', () => {
+            newRow.remove();
+        });
+    });
+}
+
+
+
+
 
         // Remove badge on click
         document.querySelectorAll('.badge-pill i').forEach(icon => {
@@ -522,6 +678,28 @@
             button.addEventListener('click', () => {
                 button.parentElement.querySelectorAll('.btn-option').forEach(btn => btn.classList.remove('active'));
                 button.classList.add('active');
+            });
+        });
+        document.addEventListener('DOMContentLoaded', function () {
+            const element = document.getElementById('strict-criteria-dropdown');
+
+            const choices = new Choices(element, {
+                removeItemButton: true,
+                searchEnabled: true,
+                itemSelectText: '',
+                shouldSort: false,
+                placeholder: true,
+                placeholderValue: 'Select an option',
+                classNames: {
+                    containerOuter: 'choices',
+                    containerInner: 'choices__inner',
+                    input: 'choices__input',
+                    listDropdown: 'choices__list--dropdown',
+                    listSingle: 'choices__list--single',
+                    listItems: 'choices__list--multiple',
+                    itemSelectable: 'choices__item--selectable',
+                    itemChoice: 'choices__item--choice',
+                },
             });
         });
         document.addEventListener('DOMContentLoaded', function () {
